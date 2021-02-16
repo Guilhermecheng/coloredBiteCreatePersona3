@@ -16,7 +16,7 @@
         <nav class="navbar">
             <h2>Character builder</h2>
             <ul class="nav-list">
-                <li id="tabDefault" class="tablinks" onclick="selectionTab(this,'bodySelect')">Body</li>
+                <li id="tabDefault" class="tablinks" onclick="selectionTab(this,'bodySelect')">body</li>
                 <!-- <li><a href="#" class="tablinks">heads</a></li> -->
                 <li class="tablinks" onclick="selectionTab(this,'hairsSelect')">hair</li>
                 <li class="tablinks" onclick="selectionTab(this,'glassesSelect')">glasses</li>
@@ -99,6 +99,16 @@
                     </select>
                 </div>
 
+                <div class="tabcontent glassesColorSelect" id="glassesSelectColor">
+                    <h2>Color</h2>
+                    <label for="bodyColor">Glasses Color</label>
+                    <select name="" id="colorChangeSelect" onchange="">
+                        <option value="0" selected>0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+
                 <div class="backgroundColorSelect" id="backgroundColorSelect">
                     <h2>Background Color</h2>
                     <select name="" id="backgroundColorChangeSelect" onchange="changeBackgroundColor(this.value)">
@@ -107,6 +117,7 @@
                         <option value="2">2</option>
                     </select>
                 </div>
+                
 
                 <button type="button" onclick="submitPersona()">Submit</button>
             </div>   

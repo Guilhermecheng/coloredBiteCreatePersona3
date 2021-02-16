@@ -42,7 +42,8 @@ li {
 
 .nav-list li {
     margin-right: 20px;
-    font-size: 1.3em;
+    font-size: 1.2em;
+    font-weight: bold;
     cursor: pointer;
 }
 
