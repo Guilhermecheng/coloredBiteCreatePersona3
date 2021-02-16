@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create </title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+   
+</head>
+
+<body>
+    <div class="characterBuider">
+        <nav class="navbar">
+            <h2>Character builder</h2>
+            <ul class="nav-list">
+                <li id="tabDefault" class="tablinks" onclick="selectionTab(this,'bodySelect')">Body</li>
+                <!-- <li><a href="#" class="tablinks">heads</a></li> -->
+                <li class="tablinks" onclick="selectionTab(this,'hairsSelect')">hair</li>
+                <li class="tablinks" onclick="selectionTab(this,'glassesSelect')">glasses</li>
+                <li class="tablinks">mouth</li>
+                <li class="tablinks">accessories</li>
+            </ul>
+        </nav>
+
+
+
+        <div class="builderBody">
+            <div class="selectMenu" id="creatingMenu">
+
+                <div class="tabcontent glassesSelect" id="bodySelect">
+                    <h2>Body</h2>
+
+                    <label for="hair">Body</label>
+                    <select name="" id="" onchange="">
+                        <option value="0" selected>0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+
+
+                <div class="tabcontent hairsSelect" id="hairsSelect">
+                    <h2>Hairs</h2>
+                    <!-- <label for="hair">hairs</label>
+                    <select name="" id="" onchange="changeHair(this.value)">
+                        <option value="0" selected>0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select> -->
+                    <div class="headsOptions" id="headsOptions"></div>
+                </div>
+                
+                <div class="tabcontent glassesSelect" id="glassesSelect">
+                    <h2>Glasses</h2>
+
+                    <label for="hair">Glasses</label>
+                    <select name="" id="" onchange="changeGlasses(this.value)">
+                        <option value="0" selected>None</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+
+                
+                
+            </div>
+
+            <div class="creating" id="creatingMain">
+                <!-- <svg class="imageSvG" id="svgImgInst"><use id="svgImgInsert" href="#"></use></svg> -->
+
+                <svg id="testeSVG" width="456" height="484" viewBox="0 0 456 484" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- here enters SVG parts -->
+                </svg>
+            </div> 
+        
+
+            <div class="settings">
+
+                <div class="tabcontent bodyColorSelect" id="bodySelectColor">
+                    <h2>Color</h2>
+                    <label for="bodyColor">Body Color</label>
+                    <select name="" id="colorChangeSelect" onchange="changeBodyColor(this.value)">
+                        <option value="0" selected>0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+
+                <div class="tabcontent hairsColorSelect" id="hairsSelectColor">
+                    <h2>Color</h2>
+                    <label for="bodyColor">Hair Color</label>
+                    <select name="" id="colorChangeSelect" onchange="">
+                        <option value="0" selected>0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+
+                <div class="backgroundColorSelect" id="backgroundColorSelect">
+                    <h2>Background Color</h2>
+                    <select name="" id="backgroundColorChangeSelect" onchange="changeBackgroundColor(this.value)">
+                        <option value="0" selected>0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+
+                <button type="button" onclick="submitPersona()">Submit</button>
+            </div>   
+        </div>
+
+    </div>
+</body>
+
+
+
+<script src="hairs.js"></script>
+<script src="script.js"></script>
+</html>
