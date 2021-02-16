@@ -28,15 +28,22 @@ var backgroundColors = [
 var glasses = [
     "",
     [
-        `<path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M208 121C208 127.076 212.925 132 219 132C225.075 132 230 127.076 230 121C230 114.925 225.075 110 219 110C212.925 110 208 114.925 208 121Z" stroke="#252535" stroke-width="4"/>`,
-        `<path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M181 121C181 127.076 185.925 132 192 132C198.075 132 203 127.076 203 121C203 114.925 198.075 110 192 110C185.925 110 181 114.925 181 121Z" stroke="#252535" stroke-width="4"/>`,
-        `<path xmlns="http://www.w3.org/2000/svg" d="M204 121.5H208" stroke="#252535" stroke-width="4"/>`,
-        `<path xmlns="http://www.w3.org/2000/svg" d="M230 120.5H261" stroke="#252535" stroke-width="4"/>`
+        `<path class="charGlasses" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M208 121C208 127.076 212.925 132 219 132C225.075 132 230 127.076 230 121C230 114.925 225.075 110 219 110C212.925 110 208 114.925 208 121Z" stroke="#252535" stroke-width="4"/>`,
+        `<path class="charGlasses" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M181 121C181 127.076 185.925 132 192 132C198.075 132 203 127.076 203 121C203 114.925 198.075 110 192 110C185.925 110 181 114.925 181 121Z" stroke="#252535" stroke-width="4"/>`,
+        `<path class="charGlasses" xmlns="http://www.w3.org/2000/svg" d="M204 121.5H208" stroke="#252535" stroke-width="4"/>`,
+        `<path class="charGlasses" xmlns="http://www.w3.org/2000/svg" d="M230 120.5H261" stroke="#252535" stroke-width="4"/>`
     ],
     [
-        `<path xmlns="http://www.w3.org/2000/svg" d="M230.803 120.71L262 121.009" stroke="#090909" stroke-width="4"/>`,
-        `<path xmlns="http://www.w3.org/2000/svg" d="M209.314 108H231.998V131C231.998 132.337 230.928 133.421 229.607 133.421H217.683C213.061 133.421 209.314 129.627 209.314 124.947V108ZM177 108H199.684V131C199.684 132.337 198.614 133.421 197.293 133.421H185.369C180.747 133.421 177 129.627 177 124.947V108Z" stroke="black" stroke-width="4"/>`
+        `<path class="charGlasses" xmlns="http://www.w3.org/2000/svg" d="M230.803 120.71L262 121.009" stroke="#090909" stroke-width="4"/>`,
+        `<path class="charGlasses" xmlns="http://www.w3.org/2000/svg" d="M209.314 108H231.998V131C231.998 132.337 230.928 133.421 229.607 133.421H217.683C213.061 133.421 209.314 129.627 209.314 124.947V108ZM177 108H199.684V131C199.684 132.337 198.614 133.421 197.293 133.421H185.369C180.747 133.421 177 129.627 177 124.947V108Z" stroke="black" stroke-width="4"/>`
     ]  
+]
+
+var glassesColors = [
+    '#000',
+    '#405FD3',
+    'red',
+    '#787878',
 ]
 
 

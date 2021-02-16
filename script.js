@@ -41,6 +41,25 @@ function changeBodyColor(number) {
     armsAndNeck.style.fill = bodyColor[number];
 };
 
+// change glasses color
+function changeGlassesColor(option) {
+    var glassesPaths = document.getElementsByClassName("charGlasses");
+    for(var i = 0; i < glassesPaths.length; i++) {
+        glassesPaths[i].style.stroke = glassesColors[option];
+    };
+};
+
+// maintaining previous changes
+function colorFromItems() {
+    var body_color = document.getElementById("colorChangeSelect").value;    
+    changeBodyColor(body_color);
+    var backColor = document.getElementById("backgroundColorChangeSelect").value;
+    changeBackgroundColor(backColor);
+    var glassesColor = document.getElementById("glassColorChangeSelect").value;
+    changeGlassesColor(glassesColor);
+};
+
+
 // hair type change
 function changeHair(option) {
     var hair_id = option;
@@ -50,11 +69,7 @@ function changeHair(option) {
     personaObj.hair = hairs2[hairIndex].mainPersonaPath;
     renderPersona(personaObj);
 
-    // maintaining previous changes
-    var body_color = document.getElementById("colorChangeSelect").value;    
-    changeBodyColor(body_color);
-    var backColor = document.getElementById("backgroundColorChangeSelect").value;
-    changeBackgroundColor(backColor);
+    colorFromItems();
 };
 
 
@@ -64,11 +79,7 @@ function changeGlasses(option) {
     personaObj.glasses = glasses[option];
     renderPersona(personaObj);
 
-    // maintaining previous changes
-    var body_color = document.getElementById("colorChangeSelect").value;    
-    changeBodyColor(body_color);
-    var backColor = document.getElementById("backgroundColorChangeSelect").value;
-    changeBackgroundColor(backColor);
+    colorFromItems();
 }
 
 // function to make page tabs
