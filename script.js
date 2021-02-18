@@ -1,10 +1,23 @@
+// main image goes here
 var main = document.getElementById("creatingMain");
+// hair options goes here
 var menuList = document.getElementById("hairList");
+// hair options goes rendered here (inside menuList)
 var headsPlace = document.getElementById("headsOptions");
-
+// body color options goes here
+var bodyColorSelectionLocation = document.getElementById("bodySelectColor");
+// glasses color options goes here
+var glassesColorSelectionLocation = document.getElementById("glassesSelectColor");
+// background color options goes here
+var backgroundColorSelectionLocation = document.getElementById("backgroundColorSelect");
+// svg from main image
 var svgPersonInPage = document.getElementById("testeSVG");
 
 var pageTabs = false;
+
+
+// saving important data in these variables
+var bodyColorrr, glasses_color_id, background_color;
 
 
 // render person image in page
@@ -27,36 +40,50 @@ function submitPersona() {
     // localStorage.setItem('myBlob', blob);
 };
 
+
 // background color select function
 function changeBackgroundColor(option) {
     var background = document.getElementById("background");
-    background.style.fill = backgroundColors[option];
+    background.style.fill = backgroundColors[option].color;
 };
+
 
 // Body color change function
 function changeBodyColor(number) {
+    var color_id = number;
+    var color_index = bodyColor.findIndex( x => x.id === color_id);
     var faceFund = document.getElementById('faceFund');
     var armsAndNeck = document.getElementById('armNeck');
-    faceFund.style.fill = bodyColor[number];
-    armsAndNeck.style.fill = bodyColor[number];
+    var colorTmp = bodyColor[color_index].color
+    console.log(colorTmp)
+    faceFund.style.fill = colorTmp;
+    armsAndNeck.style.fill = colorTmp;
+    bodyColorrr = colorTmp;
 };
 
 // change glasses color
 function changeGlassesColor(option) {
+    var colorId = glasses_color_id = option;
+    var color_index = glassesColors.findIndex( x => x.id === colorId);
     var glassesPaths = document.getElementsByClassName("charGlasses");
     for(var i = 0; i < glassesPaths.length; i++) {
-        glassesPaths[i].style.stroke = glassesColors[option];
+        glassesPaths[i].style.stroke = glassesColors[color_index].color;
     };
 };
 
-// maintaining previous changes
+// maintaining previous color changes 
 function colorFromItems() {
-    var body_color = document.getElementById("colorChangeSelect").value;    
-    changeBodyColor(body_color);
+    // body color
+    var body = document.getElementById('armNeck');
+    var face = document.getElementById('faceFund');
+    body.style.fill = bodyColorrr;
+    face.style.fill = bodyColorrr;
+    // glasses color
+    changeGlassesColor(glasses_color_id);
+    
     var backColor = document.getElementById("backgroundColorChangeSelect").value;
     changeBackgroundColor(backColor);
-    var glassesColor = document.getElementById("glassColorChangeSelect").value;
-    changeGlassesColor(glassesColor);
+    
 };
 
 
@@ -107,15 +134,52 @@ if(!pageTabs) {
     tabDefault.className += " active";
 };
 
-
 // rendering hair options
-hairs2.forEach((hair) => {
-    var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svgElem.setAttribute("class", "hairImgFromMenu");
-    svgElem.setAttribute("width","117px");
-    svgElem.setAttribute("id",hair.hairId);
-    svgElem.setAttribute("onclick",`changeHair(this.id)`);
+function getHairsToPage() {
+    hairs2.forEach((hair) => {
+        var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svgElem.setAttribute("class", "hairImgFromMenu");
+        svgElem.setAttribute("width","117px");
+        svgElem.setAttribute("id",hair.hairId);
+        svgElem.setAttribute("onclick",`changeHair(this.id)`);
+    
+        svgElem.innerHTML = hair.menuImg;    
+        headsPlace.appendChild(svgElem);
+    })
+}
+getHairsToPage();
 
-    svgElem.innerHTML = hair.menuImg;    
-    headsPlace.appendChild(svgElem);
+// body color elements
+function getBodyColorOptionsToPage() {
+    bodyColor.forEach((color) => {
+        var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svgElem.setAttribute("width", "46")
+        svgElem.setAttribute("height", "46")
+        svgElem.setAttribute("viewBox", "0 0 46 46")
+        svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${color.id}" onclick="changeBodyColor(this.id)" cx="23" cy="19" r="16" fill="${color.color}"/>`;
+        bodyColorSelectionLocation.appendChild(svgElem);
+    })
+};
+getBodyColorOptionsToPage();
+
+// glasses color elements
+function getGlassesColorOptionsToPage() {
+    glassesColors.forEach((glasses_color) => {
+        var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svgElem.setAttribute("width", "46")
+        svgElem.setAttribute("height", "46")
+        svgElem.setAttribute("viewBox", "0 0 46 46")
+        svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${glasses_color.id}" onclick="changeGlassesColor(this.id)" cx="23" cy="19" r="16" fill="${glasses_color.color}"/>`;
+        glassesColorSelectionLocation.appendChild(svgElem);
+    })
+};
+getGlassesColorOptionsToPage();
+
+backgroundColors.forEach((background_color) => {
+    var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svgElem.setAttribute("width", "46")
+    svgElem.setAttribute("height", "46")
+    svgElem.setAttribute("viewBox", "0 0 46 46")
+    svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${background_color.id}" onclick="" cx="23" cy="19" r="16" fill="${background_color.color}"/>`;
+    backgroundColorSelectionLocation.appendChild(svgElem);
 })

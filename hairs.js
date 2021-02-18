@@ -5,26 +5,58 @@
 //     `<path d="M278.633 76.3881L290 64.544L283.793 58.3478L273.412 69.164L272.401 68.6693L275.079 53.4304L266.53 51.8677L264.384 64.0798C243.679 51.1535 227.327 61.2296 227.327 61.2296C227.327 61.2296 220.728 32.9187 202.461 33.0002C176.437 33.1149 172.42 74.2404 172.42 74.2404C172.42 74.2404 159.304 51.8747 151.846 55.0715C144.388 58.2693 144.182 132.555 247.726 96.3529C247.726 96.3529 238.823 116.839 262.546 121C262.546 121 269.479 110.494 283.5 110C283.5 110 302.269 102.788 278.633 76.3881Z" fill="#19141E"/>`
 // ];
 
+// body color options
 var bodyColor = [
-    '#FFA093',
-    '#FFA784',
-    '#FF8585', 
-    '#D08668',
-    '#E6A581',
-    '#E576C6',
-    '#5E93D1'   
+    {
+        id:"bodycolor000",
+        color:'#FFA093'},
+    {
+        id:"bodycolor001",
+        color:'#FFA784'},
+    {
+        id:"bodycolor002",
+        color:'#FF8585'}, 
+    {
+        id:"bodycolor003",
+        color:'#D08668'},
+    {
+        id:"bodycolor004",
+        color:'#E6A581'},
+    {
+        id:"bodycolor005",
+        color:'#E576C6'},
+    {
+        id:"bodycolor006",
+        color:'#5E93D1'
+    }
 ]
 
+// background color options
 var backgroundColors = [
-    '#405FD3',
-    '#5E93D1',
-    '#E576C6',
-    '',
-    '',
+    {
+        id:'',
+        color:'#405FD3'
+    },
+    {
+        id:'',
+        color:'#5E93D1'
+    },
+    {
+        id:'',
+        color:'#E576C6'
+    },
+    {
+        id:'',
+        color:'red'
+    },
+    {
+        id:'',
+       color:'yellow'
+    }
 ]
 
 
-
+// glasses options
 var glasses = [
     "",
     [
@@ -39,14 +71,27 @@ var glasses = [
     ]  
 ]
 
+// glasses color options
 var glassesColors = [
-    '#000',
-    '#405FD3',
-    'red',
-    '#787878',
+    {
+        id:'glassesColor001',
+        color:'#000'
+    },
+    {
+        id:'glassesColor002',
+        color:'#405FD3'
+    },
+    {
+        id:'glassesColor003',
+        color:'red'
+    },
+    {
+        id:'glassesColor004',
+        color:'#787878'
+    }
 ]
 
-
+// default character
 var personaObj = {
     background:`<rect id="background" x="25" y="13" width="431" height="388" rx="6" fill="#405FD3"/>`,
     faceBackground:`<path id="faceFund" d="M223.66 191.758L224.513 162.456C224.513 162.456 188.715 165.291 181.058 161.334C181.058 161.334 171.699 113.37 182.861 86.8086L183.088 85.7743L258.63 76.9841L262.061 121.23C264.606 113.765 286.411 104.171 291.9 114.862C303.797 138.028 261.26 153.627 261.26 153.627L265.579 192.111" fill="#FFA093"/>`,
@@ -67,6 +112,7 @@ var personaObj = {
     cellphoneCamera:`<path fill-rule="evenodd" clip-rule="evenodd" d="M82.7426 173.451C83.1586 175.577 84.3916 177.126 85.4966 176.909C86.6006 176.693 87.1596 174.794 86.7436 172.668C86.3276 170.541 85.0946 168.993 83.9896 169.209C82.8846 169.426 82.3266 171.325 82.7426 173.451Z" fill="#020101"/>`
 }
 
+// hair type options
 var hairs2 = [
     {
         hairId:"hair000",
