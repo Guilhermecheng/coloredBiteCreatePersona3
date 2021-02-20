@@ -17,8 +17,7 @@ var pageTabs = false;
 
 
 // saving important data in these variables
-var bodyColorrr, glasses_color_id, background_color;
-
+var body_color_id, glasses_color_id, background_color_id;
 
 // render person image in page
 function renderPersona(person) {
@@ -43,22 +42,27 @@ function submitPersona() {
 
 // background color select function
 function changeBackgroundColor(option) {
+    var backgroundId = background_color_id = option;
+    var color_index = backgroundColors.findIndex( x => x.id === backgroundId);
     var background = document.getElementById("background");
-    background.style.fill = backgroundColors[option].color;
+    background.style.fill = backgroundColors[color_index].color;
 };
 
 
 // Body color change function
 function changeBodyColor(number) {
-    var color_id = number;
+    var color_id = body_color_id = number;
     var color_index = bodyColor.findIndex( x => x.id === color_id);
     var faceFund = document.getElementById('faceFund');
     var armsAndNeck = document.getElementById('armNeck');
     var colorTmp = bodyColor[color_index].color
-    console.log(colorTmp)
     faceFund.style.fill = colorTmp;
     armsAndNeck.style.fill = colorTmp;
-    bodyColorrr = colorTmp;
+
+    bodyColorSelectionLocation.innerHTML ="<h2>Color</h2>";
+    // getBodyColorOptionsToPage();
+    bodyColoringrememberMe()
+
 };
 
 // change glasses color
@@ -74,16 +78,11 @@ function changeGlassesColor(option) {
 // maintaining previous color changes 
 function colorFromItems() {
     // body color
-    var body = document.getElementById('armNeck');
-    var face = document.getElementById('faceFund');
-    body.style.fill = bodyColorrr;
-    face.style.fill = bodyColorrr;
+    changeBodyColor(body_color_id);
     // glasses color
     changeGlassesColor(glasses_color_id);
-    
-    var backColor = document.getElementById("backgroundColorChangeSelect").value;
-    changeBackgroundColor(backColor);
-    
+    // background color
+    changeBackgroundColor(background_color_id);    
 };
 
 
@@ -95,7 +94,7 @@ function changeHair(option) {
     svgPersonInPage.innerHTML = "";
     personaObj.hair = hairs2[hairIndex].mainPersonaPath;
     renderPersona(personaObj);
-
+    // maintaining previous color changes 
     colorFromItems();
 };
 
@@ -105,7 +104,7 @@ function changeGlasses(option) {
     svgPersonInPage.innerHTML = "";
     personaObj.glasses = glasses[option];
     renderPersona(personaObj);
-
+    // maintaining previous color changes 
     colorFromItems();
 }
 
@@ -156,11 +155,24 @@ function getBodyColorOptionsToPage() {
         svgElem.setAttribute("width", "46")
         svgElem.setAttribute("height", "46")
         svgElem.setAttribute("viewBox", "0 0 46 46")
-        svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${color.id}" onclick="changeBodyColor(this.id)" cx="23" cy="19" r="16" fill="${color.color}"/>`;
+
+        if(body_color_id === undefined) {
+            body_color_id = color.id;
+        } 
+
+        if(color.id === body_color_id) {
+            svgElem.innerHTML = `
+        <circle xmlns="http://www.w3.org/2000/svg" cx="23" cy="19" r="17.5" stroke="white" stroke-width="3"/>
+        <circle xmlns="http://www.w3.org/2000/svg" id="${color.id}" onclick="changeBodyColor(this.id)" cx="23" cy="19" r="16" fill="${color.color}"/>
+        `;
+
+        } else {
+            svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${color.id}" onclick="changeBodyColor(this.id)" cx="23" cy="19" r="16" fill="${color.color}"/>`;            
+        }
         bodyColorSelectionLocation.appendChild(svgElem);
     })
 };
-getBodyColorOptionsToPage();
+// getBodyColorOptionsToPage();
 
 // glasses color elements
 function getGlassesColorOptionsToPage() {
@@ -169,17 +181,68 @@ function getGlassesColorOptionsToPage() {
         svgElem.setAttribute("width", "46")
         svgElem.setAttribute("height", "46")
         svgElem.setAttribute("viewBox", "0 0 46 46")
+
+
         svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${glasses_color.id}" onclick="changeGlassesColor(this.id)" cx="23" cy="19" r="16" fill="${glasses_color.color}"/>`;
         glassesColorSelectionLocation.appendChild(svgElem);
     })
 };
 getGlassesColorOptionsToPage();
 
-backgroundColors.forEach((background_color) => {
-    var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svgElem.setAttribute("width", "46")
-    svgElem.setAttribute("height", "46")
-    svgElem.setAttribute("viewBox", "0 0 46 46")
-    svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${background_color.id}" onclick="" cx="23" cy="19" r="16" fill="${background_color.color}"/>`;
-    backgroundColorSelectionLocation.appendChild(svgElem);
-})
+// background color elements
+function getBackgroundColorOptionsToPage() {
+    backgroundColors.forEach((background_color) => {
+        var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svgElem.setAttribute("width", "46")
+        svgElem.setAttribute("height", "46")
+        svgElem.setAttribute("viewBox", "0 0 46 46")
+        svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${background_color.id}" onclick="changeBackgroundColor(this.id)" cx="23" cy="19" r="16" fill="${background_color.color}"/>`;
+        backgroundColorSelectionLocation.appendChild(svgElem);
+    })
+};
+// getBackgroundColorOptionsToPage();
+
+
+
+
+
+
+
+
+function GetColorToPage(array_of_colors) {
+    this.constructor = function(placeToPutColors, isColorDefined, functionName) {
+        array_of_colors.forEach((arrayElem) => {
+            var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svgElem.setAttribute("width", "46")
+            svgElem.setAttribute("height", "46")
+            svgElem.setAttribute("viewBox", "0 0 46 46")
+
+            if(isColorDefined === undefined) {
+                isColorDefined = arrayElem.id
+            }
+
+            if(arrayElem.id === isColorDefined) {
+                svgElem.innerHTML = `
+                <circle xmlns="http://www.w3.org/2000/svg" cx="23" cy="19" r="17.5" stroke="white" stroke-width="3"/>
+                <circle xmlns="http://www.w3.org/2000/svg" id="${arrayElem.id}" onclick="${functionName}(this.id)" cx="23" cy="19" r="16" fill="${arrayElem.color}"/>
+                `;
+            } else {
+                svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${arrayElem.id}" onclick="${functionName}(this.id)" cx="23" cy="19" r="16" fill="${arrayElem.color}"/>`;
+            }
+
+
+            placeToPutColors.appendChild(svgElem);
+        })
+    }
+}
+var bodyColoring = new GetColorToPage(bodyColor);
+function bodyColoringrememberMe() {
+    bodyColoring.constructor(bodyColorSelectionLocation, body_color_id, "changeBodyColor");
+};
+bodyColoringrememberMe();
+
+var backgroundColoring = new GetColorToPage(backgroundColors);
+function backgroundColoringRememberMe() {
+    backgroundColoring.constructor(backgroundColorSelectionLocation, background_color_id, "changeBackgroundColor");
+};
+backgroundColoringRememberMe();

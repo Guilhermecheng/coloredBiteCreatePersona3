@@ -34,23 +34,23 @@ var bodyColor = [
 // background color options
 var backgroundColors = [
     {
-        id:'',
+        id:'background001',
         color:'#405FD3'
     },
     {
-        id:'',
+        id:'background002',
         color:'#5E93D1'
     },
     {
-        id:'',
+        id:'background003',
         color:'#E576C6'
     },
     {
-        id:'',
+        id:'background004',
         color:'red'
     },
     {
-        id:'',
+        id:'background005',
        color:'yellow'
     }
 ]
