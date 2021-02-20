@@ -12,9 +12,7 @@ var glassesColorSelectionLocation = document.getElementById("glassesSelectColor"
 var backgroundColorSelectionLocation = document.getElementById("backgroundColorSelect");
 // svg from main image
 var svgPersonInPage = document.getElementById("testeSVG");
-
 var pageTabs = false;
-
 
 // saving important data in these variables
 var body_color_id, glasses_color_id, background_color_id;
@@ -29,10 +27,10 @@ function renderPersona(person) {
 };
 renderPersona(personaObj);
 
-// submit image function TO DO
+// TO DO
+// submit image function 
 function submitPersona() {
     console.log(svgPersonInPage);
-
     var blob = new Blob([`${svgPersonInPage}`],{type:"text/plain;charset=utf-8"});
     // var f = new File([`${svgPersonInPage}`], "filename.svg", {type: "text/plain"})
     // saveAs(blob,"helloworld.svg");
@@ -46,6 +44,10 @@ function changeBackgroundColor(option) {
     var color_index = backgroundColors.findIndex( x => x.id === backgroundId);
     var background = document.getElementById("background");
     background.style.fill = backgroundColors[color_index].color;
+
+    // reseting color menu to manage option selection
+    backgroundColorSelectionLocation.innerHTML = "<h2>Background Color</h2>";
+    backgroundColoringRememberMe();
 };
 
 
@@ -59,10 +61,9 @@ function changeBodyColor(number) {
     faceFund.style.fill = colorTmp;
     armsAndNeck.style.fill = colorTmp;
 
-    bodyColorSelectionLocation.innerHTML ="<h2>Color</h2>";
-    // getBodyColorOptionsToPage();
+    // reseting color menu to manage option selection
+    bodyColorSelectionLocation.innerHTML ="<h2>Body Color</h2>";
     bodyColoringrememberMe()
-
 };
 
 // change glasses color
@@ -73,6 +74,10 @@ function changeGlassesColor(option) {
     for(var i = 0; i < glassesPaths.length; i++) {
         glassesPaths[i].style.stroke = glassesColors[color_index].color;
     };
+    
+    // reseting color menu to manage option selection
+    glassesColorSelectionLocation.innerHTML = "<h2>Glasses Color</h2>";
+    glassesColoringRememberMe();
 };
 
 // maintaining previous color changes 
@@ -148,78 +153,19 @@ function getHairsToPage() {
 }
 getHairsToPage();
 
-// body color elements
-function getBodyColorOptionsToPage() {
-    bodyColor.forEach((color) => {
-        var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svgElem.setAttribute("width", "46")
-        svgElem.setAttribute("height", "46")
-        svgElem.setAttribute("viewBox", "0 0 46 46")
 
-        if(body_color_id === undefined) {
-            body_color_id = color.id;
-        } 
-
-        if(color.id === body_color_id) {
-            svgElem.innerHTML = `
-        <circle xmlns="http://www.w3.org/2000/svg" cx="23" cy="19" r="17.5" stroke="white" stroke-width="3"/>
-        <circle xmlns="http://www.w3.org/2000/svg" id="${color.id}" onclick="changeBodyColor(this.id)" cx="23" cy="19" r="16" fill="${color.color}"/>
-        `;
-
-        } else {
-            svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${color.id}" onclick="changeBodyColor(this.id)" cx="23" cy="19" r="16" fill="${color.color}"/>`;            
-        }
-        bodyColorSelectionLocation.appendChild(svgElem);
-    })
-};
-// getBodyColorOptionsToPage();
-
-// glasses color elements
-function getGlassesColorOptionsToPage() {
-    glassesColors.forEach((glasses_color) => {
-        var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svgElem.setAttribute("width", "46")
-        svgElem.setAttribute("height", "46")
-        svgElem.setAttribute("viewBox", "0 0 46 46")
-
-
-        svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${glasses_color.id}" onclick="changeGlassesColor(this.id)" cx="23" cy="19" r="16" fill="${glasses_color.color}"/>`;
-        glassesColorSelectionLocation.appendChild(svgElem);
-    })
-};
-getGlassesColorOptionsToPage();
-
-// background color elements
-function getBackgroundColorOptionsToPage() {
-    backgroundColors.forEach((background_color) => {
-        var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svgElem.setAttribute("width", "46")
-        svgElem.setAttribute("height", "46")
-        svgElem.setAttribute("viewBox", "0 0 46 46")
-        svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${background_color.id}" onclick="changeBackgroundColor(this.id)" cx="23" cy="19" r="16" fill="${background_color.color}"/>`;
-        backgroundColorSelectionLocation.appendChild(svgElem);
-    })
-};
-// getBackgroundColorOptionsToPage();
-
-
-
-
-
-
-
-
+// constructor function for color options
 function GetColorToPage(array_of_colors) {
     this.constructor = function(placeToPutColors, isColorDefined, functionName) {
         array_of_colors.forEach((arrayElem) => {
             var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svgElem.setAttribute("width", "46")
-            svgElem.setAttribute("height", "46")
-            svgElem.setAttribute("viewBox", "0 0 46 46")
+            svgElem.setAttribute("width", "46");
+            svgElem.setAttribute("height", "46");
+            svgElem.setAttribute("viewBox", "0 0 46 46");
 
             if(isColorDefined === undefined) {
-                isColorDefined = arrayElem.id
-            }
+                isColorDefined = arrayElem.id;
+            };
 
             if(arrayElem.id === isColorDefined) {
                 svgElem.innerHTML = `
@@ -227,20 +173,28 @@ function GetColorToPage(array_of_colors) {
                 <circle xmlns="http://www.w3.org/2000/svg" id="${arrayElem.id}" onclick="${functionName}(this.id)" cx="23" cy="19" r="16" fill="${arrayElem.color}"/>
                 `;
             } else {
-                svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${arrayElem.id}" onclick="${functionName}(this.id)" cx="23" cy="19" r="16" fill="${arrayElem.color}"/>`;
-            }
-
-
+                svgElem.innerHTML = `<circle xmlns="http://www.w3.org/2000/svg" id="${arrayElem.id}" onclick="${functionName}(this.id)" cx="23" cy="19" r="16" fill="${arrayElem.color}" style="cursor:pointer"/>`;
+            }            
             placeToPutColors.appendChild(svgElem);
-        })
-    }
-}
+        });
+    };
+};
+
+// body color options
 var bodyColoring = new GetColorToPage(bodyColor);
 function bodyColoringrememberMe() {
     bodyColoring.constructor(bodyColorSelectionLocation, body_color_id, "changeBodyColor");
 };
 bodyColoringrememberMe();
 
+// glasses color options
+var glassesColoring = new GetColorToPage(glassesColors);
+function glassesColoringRememberMe() {
+    glassesColoring.constructor(glassesColorSelectionLocation, glasses_color_id, "changeGlassesColor");
+};
+glassesColoringRememberMe();
+
+// background color options
 var backgroundColoring = new GetColorToPage(backgroundColors);
 function backgroundColoringRememberMe() {
     backgroundColoring.constructor(backgroundColorSelectionLocation, background_color_id, "changeBackgroundColor");
