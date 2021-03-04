@@ -4,8 +4,12 @@ var main = document.getElementById("creatingMain");
 var menuList = document.getElementById("hairList");
 // hair options goes rendered here (inside menuList)
 var headsPlace = document.getElementById("headsOptions");
+// glasses options goes rendered here
+var glassesMenuPlace = document.getElementById("glassesSelectOptions");
 // body color options goes here
 var bodyColorSelectionLocation = document.getElementById("bodySelectColor");
+// hair color options goes here
+var hairSelectionColorLocation = document.getElementById("hairsSelectColor");
 // glasses color options goes here
 var glassesColorSelectionLocation = document.getElementById("glassesSelectColor");
 // background color options goes here
@@ -15,8 +19,11 @@ var svgPersonInPage = document.getElementById("testeSVG");
 var pageTabs = false;
 
 // saving important data in these variables
-var body_color_id, glasses_color_id, background_color_id;
-
+var body_color_id = bodyColor[0].id;
+var glasses_color_id = glassesColors[0].id;
+var background_color_id = backgroundColors[0].id;
+var hair_color_id = hairColor[0].id;
+ 
 // render person image in page
 function renderPersona(person) {
     for (var prop in person) {
@@ -25,7 +32,7 @@ function renderPersona(person) {
         };
     }; 
 };
-renderPersona(personaObj);
+renderPersona(charactDefaultMale);
 
 // TO DO
 // submit image function 
@@ -66,6 +73,12 @@ function changeBodyColor(number) {
     bodyColoringrememberMe()
 };
 
+
+// TO DO - changeHairColor
+
+
+
+
 // change glasses color
 function changeGlassesColor(option) {
     var colorId = glasses_color_id = option;
@@ -97,8 +110,8 @@ function changeHair(option) {
     // finding clicked option in hair array through id
     var hairIndex = hairs2.findIndex( x => x.hairId === hair_id);
     svgPersonInPage.innerHTML = "";
-    personaObj.hair = hairs2[hairIndex].mainPersonaPath;
-    renderPersona(personaObj);
+    charactDefaultMale.hair = hairs2[hairIndex].mainPersonaPath;
+    renderPersona(charactDefaultMale);
     // maintaining previous color changes 
     colorFromItems();
 };
@@ -106,9 +119,13 @@ function changeHair(option) {
 
 // glasses function
 function changeGlasses(option) {
+    var glasses_id = option;
+    var glassesIndex = glasses.findIndex( x => x.id === glasses_id);
     svgPersonInPage.innerHTML = "";
-    personaObj.glasses = glasses[option];
-    renderPersona(personaObj);
+    // glasses SVG coming as an array
+    var glassesFromDatabase = glasses[glassesIndex].glassesSvg;
+    charactDefaultMale.glasses = glassesFromDatabase;
+    renderPersona(charactDefaultMale);
     // maintaining previous color changes 
     colorFromItems();
 }
@@ -143,7 +160,7 @@ function getHairsToPage() {
     hairs2.forEach((hair) => {
         var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svgElem.setAttribute("class", "hairImgFromMenu");
-        svgElem.setAttribute("width","117px");
+        svgElem.setAttribute("width","140px");
         svgElem.setAttribute("id",hair.hairId);
         svgElem.setAttribute("onclick",`changeHair(this.id)`);
     
@@ -153,6 +170,35 @@ function getHairsToPage() {
 }
 getHairsToPage();
 
+function getGlassesToPage() {
+    glasses.forEach((glassesUnit) => {
+        if(glassesUnit.id === "glasses000") {
+            var textNode = document.createTextNode("None");
+            var textPlace = document.createElement("div");
+            textPlace.setAttribute("class", "hairImgFromMenu");            
+            textPlace.setAttribute("id",glassesUnit.id);
+            textPlace.setAttribute("onclick", "changeGlasses(this.id)");
+
+
+            textPlace.appendChild(textNode);
+            glassesMenuPlace.appendChild(textPlace);
+        } else {
+            var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svgElem.setAttribute("class", "glassesImgFromMenu");
+            svgElem.setAttribute("width","88px");
+            svgElem.setAttribute("fill","#240C54");
+            svgElem.setAttribute("id",glassesUnit.id);
+            svgElem.setAttribute("onclick",`changeGlasses(this.id)`);
+            if(glassesUnit.id != "glasses000") {
+                for(var i = 0; i < glassesUnit.glassesMenuImg.length; i++) {
+                    svgElem.innerHTML += glassesUnit.glassesMenuImg[i];
+                    };
+        };
+        glassesMenuPlace.appendChild(svgElem);
+        }    
+    })
+};
+getGlassesToPage();
 
 // constructor function for color options
 function GetColorToPage(array_of_colors) {
@@ -186,6 +232,13 @@ function bodyColoringrememberMe() {
     bodyColoring.constructor(bodyColorSelectionLocation, body_color_id, "changeBodyColor");
 };
 bodyColoringrememberMe();
+
+
+var hairColoring = new GetColorToPage(hairColor);
+function hairColoringRememberMe() {
+    hairColoring.constructor(hairSelectionColorLocation, hair_color_id, "changeHairColor")
+};
+hairColoringRememberMe();
 
 // glasses color options
 var glassesColoring = new GetColorToPage(glassesColors);

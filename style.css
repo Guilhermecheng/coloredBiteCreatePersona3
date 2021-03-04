@@ -1,23 +1,13 @@
 body {
-    /* background-color: black; */
     margin: 0px;
     padding: 0px;
     font-family: 'Roboto', sans-serif;
     background-color: #0A0318;
-
 }
 
 li {
     list-style: none;
 }
-
-/* .characterBuilder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 800px;
-} */
-
 
 .navbar {
     display: flex;
@@ -52,8 +42,11 @@ li {
     color: #FF4162;
 }
 
+
+
 .builderBody {
     height: 600px;
+    /* max-width: 1800px; */
     width: 100vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -61,20 +54,44 @@ li {
     color: #fff;
 }
 
-/* .selectMenu {
-    margin-left: 50px;
-} */
 
-.selectMenu select {
-    display: block;
+.glassesSelect {
+    display: flex;
+    justify-content: center;
+}
+
+.glassesSelectOptions {
+    display: flex;
+    max-width: 300px;
+    overflow-y:auto !important;
+}
+
+.glassesSelectOptions > div {
+    cursor: pointer;
+    width: 40px;
+}
+
+.hairsSelect {
+    display: flex;
+    justify-content: center;
 }
 
 .headsOptions {
-    max-width: 300px;
+    max-width: 400px;
+    overflow-y:auto !important;
 }
 
 .hairImgFromMenu {
     margin-right: 20px;
+    
+    cursor: pointer;
+}
+
+.glassesImgFromMenu {
+    height: 50px;
+    margin-right: 20px;
+    cursor: pointer;
+
 }
 
 .creating {
@@ -104,10 +121,6 @@ li {
     margin: 20px;
 }
 
-.hairsSelect {
-    overflow-y:scroll !important;
-}
-
 .submitNBackground {
     margin: 20px;
 }
@@ -126,3 +139,10 @@ li {
     margin-top: 40px;
     cursor: pointer;
 }
+
+/* 
+@media(max-width:700px) {
+    .builderBody {
+        display: block;
+    }
+} */
