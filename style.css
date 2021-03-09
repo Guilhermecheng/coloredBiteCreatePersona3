@@ -108,6 +108,11 @@ li {
 
 }
 
+.hatColorSelector {
+    display: none;
+}
+
+
 .bodyColorSelect {
     display: block;
 }

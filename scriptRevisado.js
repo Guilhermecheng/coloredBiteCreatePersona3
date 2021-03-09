@@ -24,9 +24,11 @@ var pageTabs = false;
 
 // saving important data in these variables
 var body_color_id = bodyColor[0].id;
+var clothes_color_id = clothesColor[0].id;
 var glasses_color_id = glassesColors[0].id;
 var background_color_id = backgroundColors[0].id;
 var hair_color_id = hairColor[0].id;
+var hat_color_id = hatColors[0].id;
  
 // render person image in page
 function renderPersona(person) {
@@ -62,51 +64,6 @@ function changeBackgroundColor(option) {
     backgroundColoringRememberMe();
 };
 
-// Body color change function
-function changeBodyColor(number) {
-    var color_id = body_color_id = number;
-    var color_index = bodyColor.findIndex( x => x.id === color_id);
-    var faceFund = document.getElementById('faceFund');
-
-    // var faceBackground = document.getElementsByClassName('faceBackground')
-
-    var armsAndNeck = document.getElementsByClassName('armsNeck')
-    var colorTmp = bodyColor[color_index].color
-    faceFund.style.fill = colorTmp;
-
-    // looping through all found armsAndNeck
-    for(var i = 0; i < armsAndNeck.length; i++) {
-        armsAndNeck[i].style.fill = colorTmp;
-    }
-
-    // reseting color menu to manage option selection
-    bodyColorSelectionLocation.innerHTML ="";
-    bodyColoringrememberMe()
-};
-
-
-function changeClothesColor(option) {
-    var color_id = clothes_color_id = option;
-    var color_index = clothesColor.findIndex( x => x.id === color_id);
-    var clothes = document.getElementsByClassName("clothes")
-    
-}
-
-
-function changeHairColor(option){
-    var color_id = hair_color_id = option;
-    var color_index = hairColor.findIndex( x => x.id === color_id);
-    var hair = document.getElementsByClassName("hairOfSvg");
-    var colorTmp = hairColor[color_index].color;
-
-    for(var i = 0; i < hair.length; i++) {
-        hair[i].style.fill = colorTmp;
-    }   
-
-    hairColorSelectionLocation.innerHTML = ""
-    hairColoringRememberMe();
-};
-
 // change glasses color
 function changeGlassesColor(option) {
     var colorId = glasses_color_id = option;
@@ -131,19 +88,96 @@ function colorFromItems() {
     changeBackgroundColor(background_color_id);
     // hair color
     changeHairColor(hair_color_id);
+    // clothes color
+    changeClothesColor(clothes_color_id);
+    // hat color
+    changeHatColor(hat_color_id);
 };
+
+
+
+function Colors() {
+    this.createFunction = function(option, colorsFromDatabase, whereColorsAreBeingChanged, selectionLocation, functionRememberMe) {        
+        var color_index = colorsFromDatabase.findIndex( x => x.id === option);
+        var color = colorsFromDatabase[color_index].color;
+
+        if(whereColorsAreBeingChanged.length > 1) {
+            for(var i = 0; i < whereColorsAreBeingChanged.length; i++) {
+                var locations = document.getElementsByClassName(whereColorsAreBeingChanged[i]);
+                for(var y = 0; y < locations.length; y++) {
+                    locations[y].style.fill = color;
+                }        
+            }
+        } else {
+            var locations = document.getElementsByClassName(whereColorsAreBeingChanged)
+            // console.log("me chamou")
+
+            for(var y = 0; y < locations.length; y++) {
+                
+                locations[y].style.fill = color;
+            } 
+        }
+        selectionLocation.innerHTML = "";
+        functionRememberMe();
+    }
+};
+
+// creating the color functions
+var change_hair_color_func = new Colors();
+function changeHairColor(opt) {
+    hair_color_id = opt;
+    change_hair_color_func.createFunction(opt, hairColor, ["hairOfSvg"], hairColorSelectionLocation, hairColoringRememberMe);
+};
+
+var change_body_color_func = new Colors();
+function changeBodyColor(opt) {
+    body_color_id = opt;
+    change_body_color_func.createFunction(opt, bodyColor, ["faceFund", "armsNeck"], bodyColorSelectionLocation, bodyColoringrememberMe);
+};
+
+var change_clothes_color_func = new Colors();
+function changeClothesColor(opt) {
+    clothes_color_id = opt;
+    change_clothes_color_func.createFunction(opt, clothesColor, ["clothes"], clothesColorOptions, clothesColoringrememberMe);
+};
+
+function changeHatColor(option) {
+    hat_color_id = option;
+    var color_index = hatColors.findIndex( x => x.id === option);
+    var hatColorMain = hatColors[color_index].hatMain;
+    var hatColorDetail = hatColors[color_index].hatDetail;
+    var hatMain = document.getElementsByClassName("hatMain");
+    var hatDetail = document.getElementsByClassName("hatDetail");
+    // main colors
+    for(var i = 0; i < hatMain.length; i++) {
+        hatMain[i].style.fill = hatColorMain;
+    };
+
+    // detail colors
+    for(var i = 0; i < hatDetail.length; i++) {
+        hatDetail[i].style.fill = hatColorDetail;
+    };
+
+    hatColorSelectionLocation.innerHTML = "";
+    hatColor(hat_color_id);
+};
+
 // END OF COLORS PART
-
-
-
-
-
 
 
 // CHANGE FUNCTIONS
 // hair type change
 function changeHair(option) {
     var hair_id = option;
+    var hatColorSelector = document.getElementById("hatColorSelector");
+
+    if(option.slice(option.length - 3) === "hat") {
+        hatColorSelector.style.display = "block";
+    } else {
+        hatColorSelector.style.display = "none";
+    }
+
+
     // finding clicked option in hair array through id
     var hairIndex = hairs.findIndex( x => x.hairId === hair_id);
     svgPersonInPage.innerHTML = "";
@@ -261,12 +295,6 @@ bodyOptions.forEach((bodyOpt) => {
 
 
 
-
-
-
-
-
-
 // constructor function for color options
 function GetColorToPage(array_of_colors) {
     this.constructor = function(placeToPutColors, isColorDefined, functionName) {
@@ -300,6 +328,12 @@ function bodyColoringrememberMe() {
 };
 bodyColoringrememberMe();
 
+var clothesColoring = new GetColorToPage(clothesColor);
+function clothesColoringrememberMe() {
+    clothesColoring.constructor(clothesColorOptions, clothes_color_id, "changeClothesColor");
+};
+clothesColoringrememberMe();
+
 var hairColoring = new GetColorToPage(hairColor);
 function hairColoringRememberMe() {
     hairColoring.constructor(hairColorSelectionLocation, hair_color_id, "changeHairColor")
@@ -326,29 +360,30 @@ function hatColor(isColorDefined) {
             svgElem.setAttribute("width", "46");
             svgElem.setAttribute("height", "46");
             svgElem.setAttribute("viewBox", "0 0 46 46");
-            svgElem.setAttribute("style","cursor:pointer")
+            // svgElem.setAttribute("style","cursor:pointer")
 
             if(isColorDefined === undefined) {
                 isColorDefined = hat_color.id;
             };
 
-            if(arrayElem.id === isColorDefined) {
+            if(hat_color.id === isColorDefined) {
                 svgElem.innerHTML = `
-                <path d="M17.5 0C7.82763 0 0 7.82694 0 17.5C0 27.1277 7.78709 35 17.5 35C27.1724 35 35 27.1731 35 17.5C35 7.82763 27.1731 0 17.5 0Z" fill="${hat_color.hatMain}"/>
-                <path d="M17.5 0V35C27.1724 35 35 27.1731 35 17.5C35 7.82763 27.1731 0 17.5 0Z" fill="${hat_color.hatDetail}"/>
+                    <g id="${hat_color.id}" onclick="changeHatColor(this.id)">
+                    <path d="M1.5 17.5C1.5 8.65541 8.65602 1.5 17.5 1.5C26.3446 1.5 33.5 8.65602 33.5 17.5C33.5 26.3446 26.344 33.5 17.5 33.5C8.62027 33.5 1.5 26.3041 1.5 17.5Z" fill="${hat_color.hatMain}" stroke="white" stroke-width="3"/>
+                    <path d="M17 3V32C25.2906 32 32 25.5148 32 17.5C32 9.48575 25.2912 3 17 3Z" fill="${hat_color.hatDetail}"/>
+                    </g>
                 `;
                 
             } else {
                 svgElem.innerHTML = `
-                <path d="M17.5 0C7.82763 0 0 7.82694 0 17.5C0 27.1277 7.78709 35 17.5 35C27.1724 35 35 27.1731 35 17.5C35 7.82763 27.1731 0 17.5 0Z" fill="${hat_color.hatMain}"/>
-                <path d="M17.5 0V35C27.1724 35 35 27.1731 35 17.5C35 7.82763 27.1731 0 17.5 0Z" fill="${hat_color.hatDetail}"/>
+                    <g style="cursor:pointer" id="${hat_color.id}" onclick="changeHatColor(this.id)">
+                    <path d="M17.5 0C7.82763 0 0 7.82694 0 17.5C0 27.1277 7.78709 35 17.5 35C27.1724 35 35 27.1731 35 17.5C35 7.82763 27.1731 0 17.5 0Z" fill="${hat_color.hatMain}"/>
+                    <path d="M17.5 0V35C27.1724 35 35 27.1731 35 17.5C35 7.82763 27.1731 0 17.5 0Z" fill="${hat_color.hatDetail}"/>
+                    </g>
                 `;
             }
-
             hatColorSelectionLocation.appendChild(svgElem);
         
-    })
-}
-
-var color1 = "hatColor000"
-hatColor(color1);
+    });
+};
+hatColor(hat_color_id);
