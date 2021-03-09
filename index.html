@@ -16,92 +16,95 @@
         <nav class="navbar">
             <h2>Character builder</h2>
             <ul class="nav-list">
-                <li id="tabDefault" class="tablinks" onclick="selectionTab(this,'bodySelect')">body</li>
+                <li id="tabDefault" class="tablinks" onclick="selectionTab(this,'hairsSelect')">head</li>
                 <!-- <li><a href="#" class="tablinks">heads</a></li> -->
-                <li class="tablinks" onclick="selectionTab(this,'hairsSelect')">hair</li>
-                <li class="tablinks" onclick="selectionTab(this,'glassesSelect')">glasses</li>
-                <li class="tablinks">mouth</li>
-                <li class="tablinks">accessories</li>
+                <li class="tablinks" onclick="selectionTab(this,'faceSelect')">face</li>
+                <li class="tablinks" onclick="selectionTab(this,'bodySelect')">body</li>                
+                <li class="tablinks" onclick="selectionTab(this,'glassesSelect')">accessories</li>
             </ul>
         </nav>
 
-
-
         <div class="builderBody">
             <div class="selectMenu" id="creatingMenu">
-
-                <div class="tabcontent glassesSelect" id="bodySelect">
-                    <h2>Body</h2>
-
-                    <label for="hair">Body</label>
-                    <select name="" id="" onchange="">
-                        <option value="0" selected>0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
-                </div>
-
-
+                <!-- head options field -->
                 <div class="tabcontent hairsSelect" id="hairsSelect">
-                    <h2>Hairs</h2>                    
+                    <h2>Head</h2>                    
                     <div class="headsOptions" id="headsOptions"></div>
                 </div>
-                
-                <div class="tabcontent glassesSelect" id="glassesSelect">
-                    <h2>Glasses</h2>
+                <!-- face options field -->
+                <div class="tabcontent faceSelect" id="faceSelect">
+                    <h2>Faces</h2>
+                    <div class="facesOptions"></div>
 
-                    <label for="hair">Glasses</label>
-                    <select name="" id="" onchange="changeGlasses(this.value)">
-                        <option value="0" selected>None</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
                 </div>
 
-                
-                
+                <!-- body options field -->
+                <div class="tabcontent bodySelect" id="bodySelect">
+                    <h2>Body</h2>
+                    <div class="bodyOptions" id="bodyOptions"></div>                    
+                </div>
+
+                <!-- accessiories options -->                                
+                <div class="tabcontent glassesSelect" id="glassesSelect">
+                    <h2>Glasses</h2>
+                    <div class="glassesSelectOptions" id="glassesSelectOptions"></div>
+
+                    <h2>Hats</h2>
+                </div>
+
+                <!-- <div class="tabcontent accessoriesSelect" id="accessoriesSelect">
+                    <h2>Accessories</h2>
+                    <div class="accessoriesSelectOptions">
+                        
+                    </div>
+                </div> -->
             </div>
 
+            <!-- main part -->
             <div class="creating" id="creatingMain">
                 <svg id="testeSVG" width="456" height="484" viewBox="0 0 456 484" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <!-- here enters SVG parts -->
                 </svg>
-            </div> 
-        
+            </div>       
 
             <div class="settings">
+                <div class="tabcontent hairsColorSelect" id="hairsSelectColor">
+                    <h2>Hair Color</h2>
+                    <!-- color options goes here -->
+                    <div class="hairColorOptions" id="hairColorOptions"></div>
 
+                    <div class="hatColorSelector" id="hatColorSelector">
+                        <h2>Hat Color</h2>
+                        <div class="hatColorOptions" id="hatColorOptions"></div>
+                    </div>
+                </div>
+
+                <div class="tabcontent " id="faceSelectColor">
+                    <h2>Face hair color?</h2>
+                    <!-- color options goes here -->
+                </div>    
+                
                 <div class="tabcontent bodyColorSelect" id="bodySelectColor">
                     <h2>Body Color</h2>
                     <!-- color options goes here -->
+                    <div class="bodyColorOptions" id="bodyColorOptions"></div>
+
+                    <h2>Clothes</h2>
+                    <div class="clothesColorOptions" id="clothesColorOptions"></div>
                 </div>
 
-                <div class="tabcontent hairsColorSelect" id="hairsSelectColor">
-                    <h2>Color</h2>
-                    <label for="bodyColor">Hair Color</label>
-                    <select name="" id="colorChangeSelect" onchange="">
-                        <option value="0" selected>0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
-                </div>
 
                 <div class="tabcontent glassesColorSelect" id="glassesSelectColor">
                     <h2>Glasses Color</h2>
-                    
+                    <!-- color options here -->
                 </div>
 
                 <div class="submitNBackground">
                     <div class="backgroundColorSelect" id="backgroundColorSelect">
                         <h2>Background Color</h2>
-                        <!-- <select name="" id="backgroundColorChangeSelect" onchange="changeBackgroundColor(this.value)">
-                            <option value="0" selected>0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select> -->
+                        <!-- color options here -->
                     </div>
                     <button class="submitButton" type="button" onclick="submitPersona()">Submit</button>
-
                 </div>
             </div>   
         </div>
@@ -111,5 +114,5 @@
 
 
 <script src="hairs.js"></script>
-<script src="script.js"></script>
+<script src="scriptRevisado.js"></script>
 </html>
